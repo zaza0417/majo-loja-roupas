@@ -1,18 +1,18 @@
 package br.com.loja.backend.model.entity;
 
-import br.com.loja.backend.model.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "produtos")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario {
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +20,17 @@ public class Usuario {
 
     private String nome;
 
-    @Column(unique = true)
-    private String email;
+    private String descricao;
 
-    private String senha;
+    private BigDecimal preco;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private Integer estoque;
+
+    private String categoria;
+
+    private String imagem;
+
+    private Boolean ativo;
+
+
 }
-
