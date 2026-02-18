@@ -1,0 +1,26 @@
+﻿.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f3e6d6, #f9f3ea);
+  border-right: 1px solid #e8ddc9;
+  padding: 1.4rem 1rem;
+  box-shadow: 6px 0 24px rgba(47,42,40,0.06);
+}
+
+.brand { font-weight: 800; font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--text); }
+
+nav { display: flex; flex-direction: column; gap: 0.6rem; }
+nav a {
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+nav a:hover, nav a.active { background: #fff; box-shadow: var(--shadow-soft); }
+
+@media (max-width: 960px) {
+  .sidebar { position: sticky; top: 0; width: 100%; min-height: auto; display: flex; gap: 1rem; align-items: center; }
+  nav { flex-direction: row; flex-wrap: wrap; }
+}

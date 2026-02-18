@@ -1,0 +1,16 @@
+﻿<section class="dashboard">
+  <div class="head">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1>Painel rápido</h1>
+    </div>
+  </div>
+
+  <div class="cards">
+    <article class="card" *ngFor="let stat of stats">
+      <p class="label">{{ stat.titulo }}</p>
+      <h2>{{ stat.valor }}</h2>
+      <span class="delta">{{ stat.delta }} vs ontem</span>
+    </article>
+  </div>
+</section>

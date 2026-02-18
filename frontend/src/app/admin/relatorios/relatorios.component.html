@@ -1,0 +1,25 @@
+﻿<section class="admin-section">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1>Relatórios rápidos</h1>
+    </div>
+  </header>
+
+  <div class="cards">
+    <article class="card" *ngFor="let c of cards">
+      <p class="label">{{ c.title }}</p>
+      <h2>{{ c.value }}</h2>
+      <span class="desc">{{ c.desc }}</span>
+    </article>
+  </div>
+
+  <div class="card highlight">
+    <h3>Próximos passos</h3>
+    <ul>
+      <li>Ativar pixel/GA para funil completo.</li>
+      <li>Integrar e-mail de abandono de carrinho via Shopify.</li>
+      <li>Criar cupons para primeira compra.</li>
+    </ul>
+  </div>
+</section>

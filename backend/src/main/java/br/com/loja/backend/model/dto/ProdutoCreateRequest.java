@@ -7,5 +7,7 @@ public record ProdutoCreateRequest(
         String descricao,
         BigDecimal preco,
         Integer estoque,
-        Boolean ativo
+        Boolean ativo,
+        String categoria,
+        String imagem
 ) {}

@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -41,10 +41,5 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody RegisterRequest request) {
         authService.registrar(request);
-    }
-
-    @GetMapping("/users")
-    public java.util.List<br.com.loja.backend.model.entity.Usuario> listarUsuarios() {
-        return authService.listarTodos();
     }
 }

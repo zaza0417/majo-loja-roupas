@@ -1,0 +1,62 @@
+﻿<section class="admin-section">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1>Produtos</h1>
+    </div>
+    <button class="ghost" (click)="resetForm()" *ngIf="editingId">Cancelar edição</button>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h3>{{ editingId ? 'Editar produto' : 'Novo produto' }}</h3>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <label>Nome<input formControlName="nome" /></label>
+        <label>Descrição<textarea formControlName="descricao"></textarea></label>
+        <div class="row">
+          <label>Preço<input type="number" step="0.01" formControlName="preco" /></label>
+          <label>Estoque<input type="number" formControlName="estoque" /></label>
+        </div>
+        <label>Categoria<input formControlName="categoria" /></label>
+
+        <div class="upload">
+          <label class="file">
+            <span>Imagem do produto</span>
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+          </label>
+          <div class="preview" *ngIf="imagemPreviewUrl">
+            <img [src]="imagemPreviewUrl" alt="Pré-visualização" />
+          </div>
+          <p class="hint">PNG/JPG. Recomendado 1200x1600.</p>
+        </div>
+
+        <label class="inline"><input type="checkbox" formControlName="ativo" /> Ativo</label>
+        <button type="submit" [disabled]="saving">{{ saving ? 'Salvando...' : 'Salvar' }}</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="list-head">
+        <h3>Lista</h3>
+        <span *ngIf="loading">Carregando...</span>
+      </div>
+      <div class="error" *ngIf="error">{{ error }}</div>
+      <table *ngIf="!loading">
+        <thead><tr><th></th><th>Nome</th><th>Preço</th><th>Estoque</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <tr *ngFor="let p of produtos">
+            <td><div class="thumb" [class.empty]="!p.imagem" [style.background-image]="p.imagem ? 'url(' + p.imagem + ')' : null"></div></td>
+            <td>{{ p.nome }}</td>
+            <td>R$ {{ p.preco | number:'1.2-2' }}</td>
+            <td>{{ p.estoque }}</td>
+            <td><span class="pill" [class.offline]="!p.ativo">{{ p.ativo ? 'Ativo' : 'Inativo' }}</span></td>
+            <td class="actions">
+              <button class="ghost" (click)="edit(p)">Editar</button>
+              <button class="ghost danger" (click)="remover(p.id)">Remover</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

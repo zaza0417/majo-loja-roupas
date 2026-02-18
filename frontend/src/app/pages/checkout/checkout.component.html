@@ -1,0 +1,52 @@
+﻿<section class="checkout">
+  <div class="card form">
+    <h1>Finalizar compra</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="grid">
+        <label>
+          <span>Nome completo</span>
+          <input type="text" formControlName="nome" required />
+        </label>
+        <label>
+          <span>E-mail</span>
+          <input type="email" formControlName="email" required />
+        </label>
+        <label>
+          <span>Endereço</span>
+          <input type="text" formControlName="endereco" required />
+        </label>
+        <label>
+          <span>Cidade</span>
+          <input type="text" formControlName="cidade" required />
+        </label>
+        <label>
+          <span>Estado</span>
+          <input type="text" formControlName="estado" required />
+        </label>
+        <label>
+          <span>CEP</span>
+          <input type="text" formControlName="cep" required />
+        </label>
+      </div>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <button type="submit" [disabled]="loading">
+        <span *ngIf="!loading">Ir para pagamento</span>
+        <span *ngIf="loading" class="loader"></span>
+      </button>
+    </form>
+  </div>
+
+  <div class="card resumo">
+    <div class="header">
+      <h2>Resumo</h2>
+      <a routerLink="/carrinho">Editar carrinho</a>
+    </div>
+    <div class="linha">
+      <span>Total</span>
+      <strong>R$ {{ (total$ | async) | number:'1.2-2' }}</strong>
+    </div>
+    <p class="hint">Pagamento seguro via Shopify.</p>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+﻿<div class="auth-wrapper">
+  <div class="background-blur"></div>
+
+  <div class="auth-card">
+    <div class="brand">
+      <div class="logo">IS</div>
+      <h1>Izzy Store</h1>
+      <p>Bem-vindo de volta </p>
+    </div>
+
+    <nav class="tabs">
+      <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Entrar</a>
+      <a routerLink="/register" routerLinkActive="active">Cadastrar</a>
+    </nav>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+      <div class="input-group">
+        <input type="email" formControlName="email" required />
+        <label>E-mail</label>
+        <span class="bar"></span>
+      </div>
+
+      <div class="input-group">
+        <input type="password" formControlName="senha" required />
+        <label>Senha</label>
+        <span class="bar"></span>
+      </div>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <button type="submit" [disabled]="loading">
+        <span *ngIf="!loading">Entrar</span>
+        <span *ngIf="loading" class="loader"></span>
+      </button>
+
+    </form>
+
+    <div class="aux-links">
+      <a routerLink="/register">Criar nova conta</a>
+    </div>
+  </div>
+</div>
+
+
