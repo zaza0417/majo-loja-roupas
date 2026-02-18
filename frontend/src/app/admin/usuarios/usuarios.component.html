@@ -1,0 +1,52 @@
+<section class="admin-section">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1>Usuários</h1>
+      <p class="sub">Somente admins podem criar novos admins.</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Novo usuário</h3>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <label>Nome<input formControlName="nome" /></label>
+        <label>E-mail<input type="email" formControlName="email" /></label>
+        <label>Senha<input type="password" formControlName="senha" /></label>
+        <label>Perfil
+          <select formControlName="role">
+            <option value="USER">Usuário</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+        </label>
+
+        <div class="error" *ngIf="error">{{ error }}</div>
+        <button type="submit" [disabled]="saving">{{ saving ? 'Criando...' : 'Criar usuário' }}</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="list-head">
+        <h3>Lista</h3>
+        <span *ngIf="loading">Carregando...</span>
+      </div>
+      <table *ngIf="!loading">
+        <thead>
+          <tr><th>Nome</th><th>E-mail</th><th>Perfil</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of usuarios">
+            <td>{{ u.nome }}</td>
+            <td>{{ u.email }}</td>
+            <td>
+              <span class="pill" [class.admin]="(u.role || '').toUpperCase().includes('ADMIN')">
+                {{ u.role }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

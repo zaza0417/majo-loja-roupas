@@ -1,5 +1,4 @@
 package br.com.loja.backend.security;
-
 import br.com.loja.backend.model.entity.Usuario;
 import br.com.loja.backend.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.User;
@@ -22,10 +21,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Usuario user = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado para o email: " + email));
 
+        String roleName = user.getRole() == null ? "USER" : user.getRole().name();
+        String authority = roleName.startsWith("ROLE_") ? roleName : "ROLE_" + roleName;
+
         return User.builder()
                 .username(user.getEmail())
                 .password(user.getSenha())
-                .roles(user.getRole().name())
+                .authorities(authority)
                 .build();
     }
 }

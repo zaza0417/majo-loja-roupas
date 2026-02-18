@@ -1,0 +1,26 @@
+﻿.admin-layout {
+  display: flex;
+  height: 100vh;
+  background: var(--bg);
+}
+
+.admin-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-header {
+  height: 70px;
+  background: var(--surface);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+  border-bottom: 1px solid #e8ddc9;
+}
+
+.admin-page {
+  flex: 1;
+  overflow-y: auto;
+}

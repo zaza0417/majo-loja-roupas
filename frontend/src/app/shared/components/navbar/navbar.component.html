@@ -1,0 +1,41 @@
+﻿<header class="navbar">
+  <div class="logo" routerLink="/">
+    <span class="logo-icon">IS</span>
+    <span class="logo-text">Izzy Store</span>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/produtos" routerLinkActive="active">Produtos</a>
+    <a routerLink="/carrinho" routerLinkActive="active" class="cart-link">
+      Carrinho
+      <ng-container *ngIf="(totalItens$ | async) as total">
+        <span class="badge" *ngIf="total > 0">{{ total }}</span>
+      </ng-container>
+    </a>
+    <a *ngIf="isAdmin" routerLink="/admin/dashboard" routerLinkActive="active">Admin</a>
+  </nav>
+
+  <div class="actions" *ngIf="!isAuthenticated">
+    <a routerLink="/login" class="login">Entrar</a>
+    <a routerLink="/register" class="register">Cadastrar</a>
+  </div>
+
+  <div class="user" *ngIf="isAuthenticated" [class.open]="menuOpen">
+    <button type="button" class="user-trigger" (click)="toggleMenu($event)" aria-haspopup="menu" [attr.aria-expanded]="menuOpen">
+      <div class="avatar">{{ initials }}</div>
+      <div class="meta">
+        <span class="name">{{ displayName }}</span>
+        <span class="role" *ngIf="isAdmin">Admin</span>
+      </div>
+      <span class="chevron" aria-hidden="true"></span>
+    </button>
+
+    <div class="dropdown" role="menu" [attr.aria-hidden]="!menuOpen">
+      <a routerLink="/conta" class="item" role="menuitem" (click)="closeMenu()">Perfil</a>
+      <a [routerLink]="['/conta']" [queryParams]="{ edit: 1 }" class="item" role="menuitem" (click)="closeMenu()">Editar perfil</a>
+      <a *ngIf="isAdmin" routerLink="/admin/dashboard" class="item" role="menuitem" (click)="closeMenu()">Painel admin</a>
+      <button type="button" class="item" role="menuitem" (click)="logout()">Sair</button>
+    </div>
+  </div>
+</header>

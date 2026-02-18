@@ -1,0 +1,54 @@
+<section class="carrinho-page">
+  <header>
+    <div>
+      <h1>Seu Carrinho</h1>
+      <p>Revise os itens antes de finalizar a compra.</p>
+    </div>
+    <button class="outline" (click)="limpar()">Limpar carrinho</button>
+  </header>
+
+  <div class="conteudo" *ngIf="(itens$ | async) as itens; else vazio">
+    <div class="lista">
+      <article class="item" *ngFor="let item of itens">
+        <div class="thumb" [style.background-image]="'url(' + (item.imagem || '') + ')'"></div>
+        <div class="info">
+          <h3>{{ item.nome }}</h3>
+          <p class="preco">R$ {{ item.preco | number:'1.2-2' }}</p>
+        </div>
+        <div class="quantidade">
+          <button (click)="diminuir(item)">-</button>
+          <span>{{ item.quantidade }}</span>
+          <button (click)="aumentar(item)">+</button>
+        </div>
+        <div class="subtotal">R$ {{ (item.preco * item.quantidade) | number:'1.2-2' }}</div>
+        <button class="remover" (click)="remover(item)">Remover</button>
+      </article>
+    </div>
+
+    <aside class="resumo">
+      <h3>Resumo</h3>
+      <div class="linha">
+        <span>Subtotal</span>
+        <strong>R$ {{ (total$ | async) | number:'1.2-2' }}</strong>
+      </div>
+      <div class="linha">
+        <span>Frete</span>
+        <strong>Grátis</strong>
+      </div>
+      <div class="linha total">
+        <span>Total</span>
+        <strong>R$ {{ (total$ | async) | number:'1.2-2' }}</strong>
+      </div>
+
+      <a routerLink="/checkout" class="checkout-btn">Ir para Checkout</a>
+    </aside>
+  </div>
+</section>
+
+<ng-template #vazio>
+  <div class="vazio">
+    <h2>Seu carrinho está vazio</h2>
+    <p>Adicione produtos para continuar.</p>
+    <a routerLink="/produtos" class="cta">Ver produtos</a>
+  </div>
+</ng-template>

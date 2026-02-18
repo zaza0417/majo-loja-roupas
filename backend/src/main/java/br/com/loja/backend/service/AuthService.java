@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -15,30 +17,42 @@ public class AuthService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private static final String ADMIN_CODE = "LOJA-ADMIN-2026";
-
     public void registrar(RegisterRequest request) {
         if (usuarioRepository.findByEmail(request.email().toLowerCase()).isPresent()) {
             throw new RuntimeException("Email já cadastrado");
-        }
-
-        Role role = Role.USER;
-
-        if (request.adminCode() != null && request.adminCode().equals(ADMIN_CODE)) {
-            role = Role.ADMIN;
         }
 
         Usuario usuario = Usuario.builder()
                 .nome(request.nome())
                 .email(request.email().toLowerCase())
                 .senha(passwordEncoder.encode(request.senha()))
-                .role(role)
+                .role(Role.USER)
                 .build();
 
         usuarioRepository.save(usuario);
     }
 
-    public java.util.List<Usuario> listarTodos() {
+    public Usuario criarUsuarioAdmin(String nome, String email, String senha, Role role) {
+        if (usuarioRepository.findByEmail(email.toLowerCase()).isPresent()) {
+            throw new RuntimeException("Email já cadastrado");
+        }
+
+        Role finalRole = role == null ? Role.USER : role;
+        if (finalRole != Role.ADMIN && finalRole != Role.USER) {
+            throw new IllegalArgumentException("Role inválida");
+        }
+
+        Usuario usuario = Usuario.builder()
+                .nome(nome)
+                .email(email.toLowerCase())
+                .senha(passwordEncoder.encode(senha))
+                .role(finalRole)
+                .build();
+
+        return usuarioRepository.save(usuario);
+    }
+
+    public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
 }

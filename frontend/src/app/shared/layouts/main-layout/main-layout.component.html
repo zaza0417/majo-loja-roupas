@@ -1,0 +1,7 @@
+<div class="main-layout">
+  <app-navbar></app-navbar>
+
+  <main class="content" [@routeFade]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </main>
+</div>

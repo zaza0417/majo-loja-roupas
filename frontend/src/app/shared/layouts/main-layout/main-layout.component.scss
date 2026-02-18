@@ -1,0 +1,28 @@
+.main-layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 520px at 14% 0%, rgba(212, 163, 115, 0.22), transparent 60%),
+    radial-gradient(820px 480px at 86% -10%, rgba(192, 139, 88, 0.18), transparent 58%),
+    var(--bg);
+}
+
+.main-layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(420px 260px at 18% 16%, rgba(255, 250, 243, 0.65), transparent 62%),
+    radial-gradient(480px 320px at 82% 22%, rgba(243, 229, 211, 0.75), transparent 65%),
+    radial-gradient(520px 340px at 50% 110%, rgba(212, 163, 115, 0.12), transparent 60%);
+  opacity: 0.9;
+}
+
+.content {
+  flex: 1;
+  padding: 0;
+  position: relative;
+}

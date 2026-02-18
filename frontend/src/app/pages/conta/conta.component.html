@@ -1,0 +1,103 @@
+<section class="conta">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Conta</p>
+      <h1>{{ me?.nome ? ('Olá, ' + me?.nome) : 'Minha conta' }}</h1>
+      <p class="sub">Gerencie seus dados, segurança e acesse seus atalhos.</p>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" type="button" (click)="editMode ? cancelarEdicao() : abrirEdicao()">
+        {{ editMode ? 'Fechar edição' : 'Editar perfil' }}
+      </button>
+      <a *ngIf="isAdmin" routerLink="/admin/dashboard" class="btn ghost">Abrir admin</a>
+      <button class="btn" type="button" (click)="logout()">Sair</button>
+    </div>
+  </header>
+
+  <div class="state" *ngIf="loading">
+    <span class="spinner" aria-hidden="true"></span>
+    <p>Carregando sua conta...</p>
+  </div>
+
+  <div class="state error" *ngIf="error">{{ error }}</div>
+
+  <div class="grid" *ngIf="!loading && !error">
+    <div class="card">
+      <h3>Dados</h3>
+      <div class="row">
+        <span class="label">Nome</span>
+        <strong>{{ me?.nome || '-' }}</strong>
+      </div>
+      <div class="row">
+        <span class="label">E-mail</span>
+        <strong>{{ email }}</strong>
+      </div>
+      <div class="row">
+        <span class="label">Perfil</span>
+        <strong>{{ role }}</strong>
+      </div>
+      <p class="hint">Se você for <strong>ADMIN</strong>, o painel aparece no menu do topo.</p>
+    </div>
+
+    <div class="card edit-card" [class.closed]="!editMode">
+      <div class="card-head">
+        <h3>Editar perfil</h3>
+        <span class="pill" *ngIf="editMode">Edição ativa</span>
+      </div>
+
+      <form class="form" [formGroup]="form" (ngSubmit)="salvar()">
+        <label>
+          <span>Nome</span>
+          <input type="text" formControlName="nome" placeholder="Seu nome" />
+        </label>
+
+        <div class="pw">
+          <label>
+            <span>Senha atual</span>
+            <input type="password" formControlName="senhaAtual" placeholder="********" />
+          </label>
+          <label>
+            <span>Nova senha</span>
+            <input type="password" formControlName="novaSenha" placeholder="Min. 6 caracteres" />
+          </label>
+          <label>
+            <span>Confirmar nova senha</span>
+            <input type="password" formControlName="confirmarNovaSenha" placeholder="Repita a nova senha" />
+          </label>
+        </div>
+
+        <p class="note">Para trocar a senha, preencha os 3 campos acima. Se não quiser trocar, deixe em branco.</p>
+
+        <div class="form-actions">
+          <button class="btn" type="submit" [disabled]="saving || form.invalid">
+            <span *ngIf="!saving">Salvar</span>
+            <span *ngIf="saving" class="dots" aria-hidden="true"></span>
+          </button>
+          <button class="btn ghost" type="button" (click)="cancelarEdicao()">Cancelar</button>
+        </div>
+
+        <div class="success" *ngIf="success">{{ success }}</div>
+        <div class="form-error" *ngIf="formError">{{ formError }}</div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Atalhos</h3>
+      <div class="links">
+        <a routerLink="/produtos" class="link-card">
+          <span>Ver produtos</span>
+          <small>Explore a coleção Izzy</small>
+        </a>
+        <a routerLink="/carrinho" class="link-card">
+          <span>Meu carrinho</span>
+          <small>Finalize sua compra</small>
+        </a>
+        <a routerLink="/checkout" class="link-card">
+          <span>Checkout</span>
+          <small>Pagamento via Shopify</small>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+

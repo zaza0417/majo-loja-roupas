@@ -1,0 +1,39 @@
+﻿<section class="admin-section">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1>Pedidos</h1>
+    </div>
+  </header>
+
+  <div class="card">
+    <div class="error" *ngIf="error">{{ error }}</div>
+    <div *ngIf="loading">Carregando...</div>
+    <table *ngIf="!loading">
+      <thead>
+        <tr>
+          <th>ID</th><th>Cliente</th><th>Total</th><th>Status</th><th>Criado</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of pedidos">
+          <td>{{ p.id }}</td>
+          <td>
+            <div>{{ p.clienteNome }}</div>
+            <small>{{ p.clienteEmail }}</small>
+          </td>
+          <td>R$ {{ p.total | number:'1.2-2' }}</td>
+          <td>
+            <select #statusSelect [value]="p.status" (change)="setStatus(p, statusSelect.value)">
+              <option value="PENDING">Pendente</option>
+              <option value="PAID">Pago</option>
+              <option value="CANCELLED">Cancelado</option>
+            </select>
+          </td>
+          <td>{{ p.criadoEm | date:'short' }}</td>
+          <td><a [href]="p.checkoutUrl" target="_blank">Ver checkout</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

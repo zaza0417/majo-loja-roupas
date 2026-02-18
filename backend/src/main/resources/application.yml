@@ -3,9 +3,14 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/loja
-    username: loja_user
-    password: loja_pass
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/loja}
+    username: ${SPRING_DATASOURCE_USERNAME:loja_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:loja_pass}
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -15,3 +20,16 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+app:
+  frontend-origin: ${FRONTEND_ORIGIN:http://localhost:4200}
+  jwt-secret: ${JWT_SECRET:}
+  # Extended expiration to reduce frequent logins (default 48h).
+  jwt-exp-hours: ${JWT_EXP_HOURS:48}
+
+shopify:
+  store: ${SHOPIFY_STORE:izzy-store.myshopify.com}
+  admin-token: ${SHOPIFY_ADMIN_TOKEN:}
+  storefront-token: ${SHOPIFY_STOREFRONT_TOKEN:}
+  client-secret: ${SHOPIFY_CLIENT_SECRET:}
+

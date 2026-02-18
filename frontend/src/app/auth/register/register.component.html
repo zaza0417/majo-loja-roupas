@@ -1,0 +1,62 @@
+﻿<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="brand">
+      <div class="logo">IS</div>
+      <h1>Criar Conta</h1>
+      <p>Comece a comprar com curadoria Izzy.</p>
+    </div>
+
+    <nav class="tabs">
+      <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Entrar</a>
+      <a routerLink="/register" routerLinkActive="active">Cadastrar</a>
+    </nav>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+      <!-- Nome -->
+      <div class="input-group">
+        <input type="text" formControlName="nome" required />
+        <label>Nome completo</label>
+        <span class="bar"></span>
+      </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <input type="email" formControlName="email" required />
+        <label>E-mail</label>
+        <span class="bar"></span>
+      </div>
+
+      <!-- Senha -->
+      <div class="input-group">
+        <input type="password" formControlName="senha" required />
+        <label>Senha</label>
+        <span class="bar"></span>
+      </div>
+
+      <!-- Força da senha -->
+      <div class="password-strength" *ngIf="form.get('senha')?.value">
+        <div 
+          class="strength-bar">
+        </div>
+      </div>
+
+      <!-- Mensagens -->
+      <div class="error" *ngIf="error">{{ error }}</div>
+      <div class="success" *ngIf="success">{{ success }}</div>
+
+      <button type="submit" [disabled]="loading">
+        <span *ngIf="!loading">Cadastrar</span>
+        <span *ngIf="loading" class="loader"></span>
+      </button>
+
+    </form>
+
+    <div class="aux-links">
+      <a routerLink="/login">Já tem conta? Entrar</a>
+    </div>
+  </div>
+</div>
+
+
+

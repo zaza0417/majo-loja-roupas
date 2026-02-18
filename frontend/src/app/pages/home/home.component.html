@@ -1,0 +1,61 @@
+﻿<section class="hero" @fadeSlide>
+  <div class="hero-copy">
+    <p class="eyebrow">Izzy Store</p>
+    <h1>Elegância descomplicada para o dia a dia.</h1>
+    <p class="sub">Peças neutras, cortes limpos e materiais confortáveis para você viver mais leve.</p>
+    <div class="actions">
+      <button routerLink="/produtos">Ver coleção</button>
+      <a *ngIf="!isAuthenticated" routerLink="/register" class="link">Crie sua conta</a>
+      <a *ngIf="isAuthenticated" routerLink="/conta" class="link">Minha conta</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="shape one"></div>
+    <div class="shape two"></div>
+    <div class="card">
+      <p>NOVA COLEÇÃO · 2026</p>
+      <strong>Neutros essenciais</strong>
+      <span>Frete grátis acima de R$ 299</span>
+    </div>
+  </div>
+</section>
+
+<section class="categories">
+  <a class="category" routerLink="/produtos" *ngFor="let cat of ['Feminino','Masculino','Acessórios']">
+    <span>{{ cat }}</span>
+  </a>
+</section>
+
+<section class="featured">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Destaques</p>
+      <h2>Escolhas da semana</h2>
+    </div>
+    <a routerLink="/produtos" class="link">Ver todos</a>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card" *ngFor="let produto of produtos" @fadeSlide>
+      <div class="image">
+        <img
+          [src]="produto.imagem || 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab'"
+          [alt]="produto.nome"
+          loading="lazy"
+        >
+      </div>
+      <h3>{{ produto.nome }}</h3>
+      <p class="price">R$ {{ produto.preco | number:'1.2-2' }}</p>
+      <button routerLink="/produtos">Ver produto</button>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div>
+    <h2>Ganhe 10% OFF na primeira compra</h2>
+    <p>Assine a newsletter Izzy e receba lançamentos exclusivos.</p>
+  </div>
+  <button *ngIf="!isAuthenticated" routerLink="/register">Criar conta</button>
+  <button *ngIf="isAuthenticated" routerLink="/produtos">Continuar comprando</button>
+</section>
